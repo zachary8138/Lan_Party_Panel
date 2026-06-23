@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LAN Party // LAN Portal</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Teko:wght=500;700&display=swap');
+
+    .font-header { font-family: 'Teko', sans-serif; }
+    .font-console { font-family: 'Share Tech Mono', monospace; }
+
+    .crt-bg {
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                  linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      background-size: 100% 4px, 6px 100%;
+    }
+
+    .hazard-stripe {
+      background: repeating-linear-gradient(
+        -45deg,
+        #f59e0b,
+        #f59e0b 10px,
+        #1e1b4b 10px,
+        #1e1b4b 20px
+      );
+    }
+  </style>
+</head>
+
+<body class="bg-[#0c0f12] text-amber-500 font-console crt-bg min-h-screen p-4 sm:p-8 tracking-wide selection:bg-amber-500 selection:text-black">
+  <div class="w-full h-2 hazard-stripe border-b border-amber-600 mb-8 opacity-70"></div>
+
+  <header class="max-w-6xl mx-auto mb-10 border border-amber-600/30 bg-[#13171e]/90 p-6 rounded-sm relative shadow-[0_0_20px_rgba(245,158,11,0.05)]">
+    <div class="absolute top-0 right-4 text-[10px] text-amber-600/50 uppercase tracking-widest">SYSTEM: ONLINE // COMMS: SECURE</div>
+
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <h1 class="font-header text-5xl md:text-7xl font-bold uppercase tracking-wider text-amber-500 leading-none">
+          THEKNIGHT'S DROPSHIP
+        </h1>
+        <p class="text-xs text-amber-600/80 uppercase mt-2 tracking-widest">
+          [ HPG connection status: online // OPERATION: LAN Party ] &bull; HOST: [HOST_SUBDOMAIN].[YOUR_LOCAL_DOMAIN].local
+        </p>
+      </div>
+      <div class="border border-amber-500/40 p-3 bg-black/40 rounded-sm text-center min-w-[200px]">
+        <div class="text-[10px] text-amber-600 uppercase">Master Server IPv4</div>
+        <div class="text-xl font-bold text-white tracking-widest">YOUR_SERVER_IP</div>
+      </div>
+    </div>
+  </header>
+
+  <main id="matrix-grid" class="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></main>
+
+  <footer class="max-w-6xl mx-auto text-center text-amber-600/40 text-xs mt-12 pt-4 border-t border-amber-600/10 flex flex-col sm:flex-row justify-between uppercase tracking-widest gap-2">
+    <div>Reactor Core: Nominal // Heat Level: 14%</div>
+    <div>All systems nominal // Powered by Pelican</div>
+  </footer>
+
+  <script>
+    const tacticalMatrix = [
+      { id: "M-01", name: "[GAME_SERVER_A]", port: "[PORT_1]" },
+      { id: "M-02", name: "[GAME_SERVER_B]", port: "[PORT_2]" },
+      { id: "M-03", name: "[GAME_SERVER_C]", port: "[PORT_3]" },
+      { id: "M-04", name: "[GAME_SERVER_D]", port: "[PORT_4]" },
+      { id: "M-05", name: "[GAME_SERVER_E]", port: "[PORT_5]" },
+      { id: "M-06", name: "[GAME_SERVER_F]", port: "[PORT_6]" },
+      { id: "M-07", name: "[GAME_SERVER_G]", port: "[PORT_7]" },
+      { id: "M-08", name: "[GAME_SERVER_H]", port: "[PORT_8]" },
+      { id: "M-09", name: "[GAME_SERVER_I]", port: "[PORT_9]" },
+      { id: "M-10", name: "[GAME_SERVER_J]", port: "[PORT_10]" },
+      { id: "M-11", name: "[GAME_SERVER_K]", port: "[PORT_11]" },
+      { id: "M-12", name: "[GAME_SERVER_L]", port: "[PORT_12]" },
+      { id: "M-13", name: "[GAME_SERVER_M]", port: "[PORT_13]" },
+      { id: "M-14", name: "[GAME_SERVER_N]", port: "[PORT_14]" }
+    ];
+
+    const hostIp = "[YOUR_MASTER_SERVER_IP]";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const grid = document.getElementById("matrix-grid");
+
+      grid.innerHTML = tacticalMatrix.map((matrix, index) => {
+        const uriId = `uri-${index}`;
+        const conn = `${hostIp}:${matrix.port}`;
+
+        return `
+          <div class="bg-[#11161d]/90 border border-amber-600/20 hover:border-amber-500 p-4 relative rounded-sm transition-all duration-150 hover:bg-[#161d26] group shadow-md flex flex-col justify-between">
+            <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-amber-500/40 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-amber-500/40 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+            <div>
+              <div class="flex justify-between items-center border-b border-amber-600/10 pb-2 mb-3">
+                <span class="text-[10px] text-amber-600 font-bold">${matrix.id} // SYS_READY</span>
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981]"></span>
+              </div>
+              <h2 class="font-header text-2xl font-bold uppercase text-white tracking-wide group-hover:text-amber-400 transition-colors">
+                ${matrix.name}
+              </h2>
+            </div>
+
+            <div class="mt-4 flex gap-2 relative">
+              <div class="flex-1 bg-black/60 border border-amber-600/20 px-3 py-2 text-sm text-amber-400 font-mono tracking-wider flex items-center justify-between rounded-sm">
+                <span id="${uriId}" class="uri-text">${conn}</span>
+              </div>
+
+              <button
+                type="button"
+                data-uri="${uriId}"
+                onclick="engageComms(this)"
+                class="bg-amber-600 hover:bg-amber-500 text-black font-bold uppercase text-xs px-4 py-2 transition-all duration-100 active:scale-95 rounded-sm whitespace-nowrap"
+              >
+                CONN
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    });
+
+    async function engageComms(button) {
+      const uriId = button.getAttribute("data-uri");
+      const uriEl = document.getElementById(uriId);
+      const text = (uriEl?.innerText || "").trim();
+
+      if (!text) return;
+
+      // Try modern clipboard first (works best on HTTPS; may still work on some local contexts)
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+          triggerVisualFeedback(button, "LOADED", "bg-emerald-500");
+          return;
+        }
+      } catch (_) {
+        // fall through
+      }
+
+      // Fallback path: create a temporary input, select it, and attempt legacy copy.
+      // Even if copy fails, selection will make manual Ctrl+C easy.
+      const temp = document.createElement("input");
+      temp.type = "text";
+      temp.value = text;
+      temp.setAttribute("readonly", "");
+      temp.style.position = "fixed";
+      temp.style.opacity = "0";
+      temp.style.left = "-9999px";
+      temp.style.top = "0";
+      document.body.appendChild(temp);
+
+      temp.focus();
+      temp.select();
+
+      let copied = false;
+      try {
+        copied = document.execCommand && document.execCommand("copy");
+      } catch (_) {
+        copied = false;
+      }
+
+      document.body.removeChild(temp);
+
+      if (copied) {
+        triggerVisualFeedback(button, "LOADED", "bg-emerald-500");
+      } else {
+        // Ultimate fallback: highlight the original text element for manual copy
+        highlightElement(uriEl);
+        triggerVisualFeedback(button, "CTRL+C", "bg-red-500");
+      }
+    }
+
+    function highlightElement(el) {
+      if (!el) return;
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+
+    function triggerVisualFeedback(button, text, successClass) {
+      const originalText = button.innerText;
+      button.innerText = text;
+      button.className = `${successClass} text-black font-bold uppercase text-xs px-4 py-2 transition-all duration-100 rounded-sm whitespace-nowrap`;
+
+      setTimeout(() => {
+        button.innerText = originalText;
+        button.className = "bg-amber-600 hover:bg-amber-500 text-black font-bold uppercase text-xs px-4 py-2 transition-all duration-100 rounded-sm whitespace-nowrap";
+        window.getSelection().removeAllRanges();
+      }, 1500);
+    }
+  </script>
+</body>
+</html>
